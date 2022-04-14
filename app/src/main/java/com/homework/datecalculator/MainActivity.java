@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
     private Button birthBtn, todayBtn, calBtn;
@@ -34,11 +35,6 @@ public class MainActivity extends AppCompatActivity {
         todayBtn = findViewById(R.id.btn_today);
         calBtn = findViewById(R.id.btn_cal);
         textView = findViewById(R.id.tv_date_difference);
-
-        Calendar calendar = Calendar.getInstance();
-        int birthYear = calendar.get(Calendar.YEAR);
-        int birthMonth = calendar.get(Calendar.MONTH);
-        int birthDay = calendar.get(Calendar.DAY_OF_MONTH);
 
         birthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
         int birthMonth = calendar.get(Calendar.MONTH);
         int birthDay = calendar.get(Calendar.DAY_OF_MONTH);
 
+        /*Calendar c = new GregorianCalendar(birthYear, birthMonth, 0);
+        SimpleDateFormat sf = new SimpleDateFormat("dd");
+        Date date = c.getTime();
+        int i = Integer.parseInt(sf.format(date));
+        birthBtn.setText(String.valueOf(i));*/
+
         DatePickerDialog dialog = new DatePickerDialog(MainActivity.this, listener, birthYear, birthMonth, birthDay);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
@@ -104,14 +106,14 @@ public class MainActivity extends AppCompatActivity {
             //long startDate = simpleDateFormat.parse(s1).getTime();
             //long endDate = simpleDateFormat.parse(s2).getTime();
 
-            if (startDate <= endDate){
-                Period period = new Period(startDate,endDate,PeriodType.yearMonthDay());
+            if (startDate <= endDate) {
+                Period period = new Period(startDate, endDate, PeriodType.yearMonthDay());
                 int perYear = period.getYears();
                 int perMonth = period.getMonths();
                 int perDay = period.getDays();
 
-                textView.setText(perDay+" Days "+perMonth+" Months "+perYear+" Years ");
-            }else{
+                textView.setText(perDay + " Days " + perMonth + " Months " + perYear + " Years ");
+            } else {
                 Toast.makeText(getApplicationContext(), "Start date shouldn't larger than end date!", Toast.LENGTH_SHORT).show();
             }
 
